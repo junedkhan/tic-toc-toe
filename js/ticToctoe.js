@@ -38,10 +38,12 @@ class Tictoctoe {
         if(winningComb[`${sym}${sym}${sym}`]) {
             this.winner = name;
             this.gameMessage = `Hurray! ${name} has won the match.`
+            return;
         }
 
         if(this.data.every(item => item !== null)) {
             this.gameMessage = 'Game is draw.';
+            return;
         }
     }
 
