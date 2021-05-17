@@ -1,0 +1,36 @@
+.grid-container {
+    display: flex;
+    width: 310px;
+    flex-wrap: wrap;
+}
+
+.grid {
+    display: flex;
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.item-0, .item-1, .item-2 {
+    border-top: none;
+}
+
+.item-0, .item-3, .item-6 {
+    border-left: none;
+}
+
+.item-6, .item-7, .item-8 {
+    border-bottom: none;
+}
+
+.item-2, .item-5, .item-8 {
+    border-right: none;
+}
+
+#winner  {
+    color: green;
+}
