@@ -13,8 +13,8 @@ class Tictoctoe {
         this.data = [null, null, null,null, null, null, null, null, null];
         this.mode = mode;
         this.winner = '';
-        this.palyer1 = new Player('player1', 'normal', 'X');
-        this.player2 = new Player('player2', 'normal', 'O');
+        this.palyer1 = new Player('X', 'normal', 'X');
+        this.player2 = new Player('O', 'normal', 'O');
         this.currentPlayer = this.palyer1;
         this.gameMessage = '';
     }
