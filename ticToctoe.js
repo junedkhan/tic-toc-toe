@@ -17,7 +17,6 @@ class Tictoctoe {
         this.winner = '';
         this.palyer1 = new Player('player1', 'normal', 'X');
         this.player2 = new Player('player2', 'normal', 'O');
-        console.log('player2', this.player2)
         this.currentPlayer = this.palyer1;
     }
 
@@ -48,25 +47,22 @@ class Tictoctoe {
     }
 
     switchPlayer = () => {
-        console.log("this.palyer2", this.player2)
         this.currentPlayer = this.currentPlayer === this.palyer1 ? this.player2 : this.palyer1;
-        console.log("this.currentPlayer", this.currentPlayer);
     }
 }
 
 function start() {
     const game = new Tictoctoe();
-    console.log(game)
-    document.getElementById('game').addEventListener("click", function hurra(e) {
+    const gameBox = document.getElementById('game');
+    gameBox.addEventListener("click", function onMove(e) {
         const name = e.target.getAttribute('name');
-        
         const val = game.currentPlayerMove(name);
         document.getElementsByClassName(`item-${name}`)[0].innerHTML =  val;
        game.calculateWinner(val, game.currentPlayer.name);
        if(game.winner) {
            document.getElementById('winner').innerHTML = `Hurray!!! ${game.winner} wins`;
-           document.getElementById('game').style.color = "red";
-           document.getElementById('game').removeEventListener("click", hurra);
+           gameBox.style.color = "red";
+           gameBox.removeEventListener("click", onMove);
            return;
        }
         game.switchPlayer();
