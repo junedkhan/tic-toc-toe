@@ -5,9 +5,7 @@ class Player {
         this.symbol = symbol;
     }
 
-    move = () => {
-        return this.symbol;
-    }
+    move = () => this.symbol;
 }
 
 class Tictoctoe {
@@ -18,10 +16,11 @@ class Tictoctoe {
         this.palyer1 = new Player('player1', 'normal', 'X');
         this.player2 = new Player('player2', 'normal', 'O');
         this.currentPlayer = this.palyer1;
+        this.gameMessage = '';
     }
 
     reset = () => {
-        this.data = [null, null, null,null, null, null, null, null, null];
+        this.data = new Array(9).fill(null);
     }
 
     calculateWinner = (sym, name) => {
@@ -35,13 +34,19 @@ class Tictoctoe {
             [`${this.data[2]}${this.data[5]}${this.data[8]}`]: true,
             [`${this.data[2]}${this.data[4]}${this.data[6]}`]: true,
         }
-        console.log(this.data)
+        
         if(winningComb[`${sym}${sym}${sym}`]) {
             this.winner = name;
-        } 
+            this.gameMessage = `Hurray! ${name} has won the match.`
+        }
+
+        if(this.data.every(item => item !== null)) {
+            this.gameMessage = 'Game is draw.';
+        }
     }
 
     currentPlayerMove = (ind) => {
+        if(this.data[ind]) return this.data[ind];
         this.data[ind] = this.currentPlayer.move();
         return this.data[ind];
     }
@@ -54,18 +59,19 @@ class Tictoctoe {
 function start() {
     const game = new Tictoctoe();
     const gameBox = document.getElementById('game');
-    gameBox.addEventListener("click", function onMove(e) {
+    function onMove(e) {
         const name = e.target.getAttribute('name');
         const val = game.currentPlayerMove(name);
         document.getElementsByClassName(`item-${name}`)[0].innerHTML =  val;
        game.calculateWinner(val, game.currentPlayer.name);
-       if(game.winner) {
-           document.getElementById('winner').innerHTML = `Hurray!!! ${game.winner} wins`;
+       if(game.gameMessage) {
+           document.getElementById('message').innerHTML = game.gameMessage;
            gameBox.style.color = "red";
            gameBox.removeEventListener("click", onMove);
            return;
        }
-        game.switchPlayer();
-    });
+       game.switchPlayer();
+    }
+    gameBox.addEventListener("click", onMove);
 }
 start();
